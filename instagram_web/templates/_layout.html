@@ -6,6 +6,10 @@
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='image/favicon.ico') }}">
 
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
     {% assets "home_css" %}
       <link rel="stylesheet" href="{{ ASSET_URL }}">
     {% endassets %}
@@ -14,11 +18,49 @@
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
 
-    {% block header %}{% endblock %}
+    {% block header %}
+    {% endblock %}
+
     <title>{% block title %}{% endblock %}NEXTAGRAM</title>
+    
   </head>
   <body>
-    {% block content %}
-    {% endblock %}
+
+     <!-- putting flash alert-->
+      {% with messages = get_flashed_messages(with_categories = true) %}
+      {% if messages %}
+      
+      {% for category, message in messages %}
+      <div class="alert alert-{{category}} flashes" role="alert">
+          {{ message }}
+      </div>
+      
+      {% endfor %}     
+      {% endif %}
+      {% endwith %}
+     
+     
+    
+    <div class = 'container'>
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    <br>
+
+    <!-- putting errors alert-->
+    {% if errors|length >0 %}
+
+    <div class="alert alert-danger" role="alert">
+    {% for error in errors if errors|length > 0 %}
+      <p>{{ error }}</p>  
+    {% endfor %}
+    </div>
+
+    {% endif %}
+
+
+
+
   </body>
 </html>
