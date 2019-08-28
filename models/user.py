@@ -1,12 +1,13 @@
 from models.base_model import BaseModel
 import peewee as pw
 from werkzeug.security import generate_password_hash
+from flask_login import UserMixin
 
 # for testing password 
 import re 
 
 
-class User(BaseModel):
+class User(BaseModel, UserMixin):
     name = pw.CharField(unique=True) #unique, not allow null
     email = pw.CharField(unique=True, index=True) #index column, unique, not allow null
     password = pw.CharField() # no need to be unique
@@ -35,6 +36,4 @@ class User(BaseModel):
             self.errors.append('Password must contains at least 1 symbol')
         else:
             self.password = generate_password_hash(self.password)
-
-
 

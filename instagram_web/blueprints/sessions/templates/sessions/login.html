@@ -1,0 +1,31 @@
+{% extends "_layout.html" %}
+{% block content %}
+
+
+<h1>Log in</h1>
+
+
+<!-- need to do foldername.function -->
+<form action= {{ url_for('sessions.check') }} method='POST'>
+
+    <input type='hidden' name='csrf_token' value = "{{ csrf_token() }}" >
+
+    <div class="form-group">
+        <label for="exampleInputName1">Name</label>     
+        <input name = 'name' type="name" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="Enter name">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input name = 'email' type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input name='password' type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Log in</button>
+  </form>
+{% endblock %}
+

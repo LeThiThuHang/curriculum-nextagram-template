@@ -21,28 +21,66 @@
     {% block header %}
     {% endblock %}
 
-    <title>{% block title %}{% endblock %}NEXTAGRAM</title>
+    <title>{% block title %}{% endblock %} NEXTAGRAM</title>
     
   </head>
   <body>
 
+  <!-- navigation menu -->
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Nextagram</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% if current_user.is_authenticated %}
+            {{current_user}}
+            <!-- refer to the form action to logout -->
+            <form action = {{ url_for('sessions.logout') }}>
+                <li class="nav-item mr-3">
+                  <!-- refer to the function to show it back to homepage -->
+                  
+                      <button type="sumbit" class="btn btn-secondary"> Log Out</button>
+                  
+                </li>
+            </form>
+            {% else %}
+            <li class="nav-item">
+              <!-- refer to the function to show the Log In form -->
+              <a href= "{{ url_for('sessions.check') }}">
+                <button type="sumbit" class="btn btn-secondary" href=''>Log In</button>
+              </a>
+            
+            </li>
+            {% endif %}
+
+        </ul>
+
+      </div>
+    </nav>
+  
+
+   
+
      <!-- putting flash alert-->
       {% with messages = get_flashed_messages(with_categories = true) %}
-      {% if messages %}
-      
+      {% if messages %}     
       {% for category, message in messages %}
       <div class="alert alert-{{category}} flashes" role="alert">
           {{ message }}
-      </div>
-      
+      </div>     
       {% endfor %}     
       {% endif %}
       {% endwith %}
      
-     
+
     
     <div class = 'container'>
-      {% block content %}
+      {% block content %}     
       {% endblock %}
     </div>
 
@@ -50,13 +88,11 @@
 
     <!-- putting errors alert-->
     {% if errors|length >0 %}
-
     <div class="alert alert-danger" role="alert">
     {% for error in errors if errors|length > 0 %}
       <p>{{ error }}</p>  
     {% endfor %}
     </div>
-
     {% endif %}
 
 

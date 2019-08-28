@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, flash, request,redirect, url_for
 
 from models.user import User
 
+from werkzeug.security import check_password_hash
+
 users_blueprint = Blueprint('users',
                             __name__,
                             template_folder='templates')
@@ -28,15 +30,16 @@ def create():
         return render_template('users/new.html' , errors = new_user.errors)
 
 
+@users_blueprint.route('/', methods=["GET"])
+def index():
+    pass
 
 @users_blueprint.route('/<username>', methods=["GET"])
 def show(username):
     pass
 
 
-@users_blueprint.route('/', methods=["GET"])
-def index():
-    return "USERS"
+
 
 
 @users_blueprint.route('/<id>/edit', methods=['GET'])
