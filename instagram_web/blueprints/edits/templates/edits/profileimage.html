@@ -1,0 +1,19 @@
+{% extends "_layout.html" %}
+{% block content %}
+
+<h3>Upload your profile photo</h3>
+
+<form action={{ url_for('users/edit.upload_file') }} method='POST' enctype="multipart/form-data">
+
+<div class="custom-file">
+    <input type='hidden' name='csrf_token' value = "{{ csrf_token() }}" >
+    <input type="file" name = 'user_file' class="custom-file-input" id="customFile">
+    <label  class="custom-file-label" for="customFile">Choose file image</label>
+    <button type="submit">Upload</button>
+</div>
+
+</form>
+
+
+{% endblock %}
+

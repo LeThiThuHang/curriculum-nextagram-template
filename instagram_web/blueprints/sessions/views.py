@@ -13,6 +13,11 @@ sessions_blueprint = Blueprint('sessions',
 def new():
     return render_template('sessions/login.html')
 
+#this is lead the user to their page after login
+@sessions_blueprint.route('/<username>/')
+def show():
+    return render_template('home.html')
+
 # this is to check new user inforamtion
 @sessions_blueprint.route('/', methods=['GET','POST'])
 def check():
@@ -41,7 +46,7 @@ def check():
                 #tell the browser to store the id for the session
                 login_user(user)
                 #return the homepage
-                return render_template('home.html')
+                return redirect(url_for('home', username = user.name))
             else: 
                 flash('Please try to log in again!', 'danger')
                 return render_template('sessions/login.html')
@@ -51,8 +56,6 @@ def check():
 
     else: 
         return render_template('sessions/login.html')
-
-
 
 @sessions_blueprint.route('/logout')
 @login_required
@@ -64,7 +67,8 @@ def logout():
     else: 
         flash('Log out again !!!', 'danger') 
         return render_template('home.html')
-          
+
+
     
 
 

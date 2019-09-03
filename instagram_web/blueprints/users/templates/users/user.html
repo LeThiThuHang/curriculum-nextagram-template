@@ -1,0 +1,64 @@
+{% extends "_layout.html" %}
+{% block content %}
+
+
+<h1>User Profile Page</h1>
+
+<div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
+
+    <div class="p-2 bd-highlight ">
+        <h1>{{user.name}}</h1>
+    </div>
+
+
+
+    <div class="p-2 bd-highlight">
+        <img src = "{{ user.profile_image_url }}" class = 'rounded w-25 h-25'>
+        
+    </div>
+
+    <!--upload image form-->
+    <div class="p-2 bd-highlight w-100"></div>
+        <form action = {{ url_for('users.image_upload', username = current_user.name) }} method='POST' enctype="multipart/form-data">          
+            <input type='hidden' name='csrf_token' value = "{{ csrf_token() }}" >          
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button type='submit' class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Upload your photo</button>
+                    </div>
+                    <div class="custom-file">
+                        <input name='user_file' type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                </div>                                            
+        </form> 
+    </div>
+
+</div>
+
+<!-- for the images selection -->
+<div class="d-flex flex-row flex-wrap align-content-center">
+
+    {% for image in user.images %}
+    <div class = "d-flex flex-column">       
+        <img src='{{image.image_url}}' class='w-25'>
+       
+        <form action = {{ url_for('users.checkout_new', username = current_user.name, imageid = image.id) }} method='POST'>
+            <input type='hidden' name='csrf_token' value = "{{ csrf_token() }}" > 
+            <input type ='hidden' name='image_id' value = {{image_id}}>
+          
+            <button type='submit' class="btn btn-outline-secondary w-25 bg-dark text-white" type="button">Donate</button>
+
+        </form>
+
+        
+
+    
+        
+    </div>
+    {% endfor %}
+
+</div>
+
+
+
+{% endblock %}

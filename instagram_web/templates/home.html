@@ -6,4 +6,37 @@
 {% endblock %}
 {% block content %}
 <h1>Homepage</h1>
+
+<div class="d-flex flex-row bd-highlight mb-3">
+  
+    {% for user in all_users %} 
+    <!-- for each user - user name and user profile pic-->
+    <div class="d-flex flex-column bd-highlight mb-3 border border-white bg-secondary">
+
+      <div class="p-2 bd-highlight"> {{ user.name}} </div>
+
+      <div class="p-2 bd-highlight ">
+        <a href='/users/{{user.name}}'>
+          <button type = 'Submit'>See More</button>
+        </a>
+      </div>
+
+      <div class="p-2 bd-highlight"> 
+          <img src='{{ user.profile_image_url}}' class = 'rounded-circle img-fluid w-25'>
+      </div>
+      <!-- for the images selection -->
+      <div class="d-flex flex-row flex-wrap align-content-center">
+      {% for image in user.images %}
+        <div class="p-2">
+          <img src='{{image.image_url}}'>
+        </div>
+      {% endfor %}
+      </div>
+    {% endfor %}
+
+    </div>
+
+</div>
+
+
 {% endblock %}
