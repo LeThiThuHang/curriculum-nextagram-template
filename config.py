@@ -8,6 +8,9 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = os.environ.get(
         'SECRET_KEY') or os.urandom(32)
+    
+    client_id=os.environ.get("GOOGLE_CLIENT_ID")
+    client_secret=os.environ.get("GOOGLE_CLIENT_SECRET")
 
 
 class ProductionConfig(Config):
@@ -34,7 +37,8 @@ class DevelopmentConfig(Config):
 
     DEBUG                     = True
     PORT                      = 5000
-
+    
+    #for Google authorization
 
 
 

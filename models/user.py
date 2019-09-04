@@ -17,10 +17,11 @@ import os
 
 class User(BaseModel, UserMixin):
     
-    name = pw.CharField(unique=True) #unique, not allow null
-    email = pw.CharField(unique=True, index=True) #index column, unique, not allow null
+    name = pw.CharField(unique=True) #unique,
+    email = pw.CharField(unique=True, index=True) #index column, 
     password = pw.CharField() # no need to be unique
     profile_image = pw.CharField(null=True)
+    token = pw.CharField(null=True)
 
    
     @hybrid_property

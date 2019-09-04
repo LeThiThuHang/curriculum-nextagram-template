@@ -166,8 +166,6 @@ def thankyou(username):
 
 
 
-
-
 @users_blueprint.route('/<id>/edit', methods=['GET'])
 def edit(id):
     pass

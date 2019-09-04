@@ -32,7 +32,6 @@ def upload_file_to_s3(file, bucket_name, acl="public-read"):
 
 #allowed_file
 
-
 import braintree
 import os
 
@@ -62,4 +61,8 @@ def sending_email():
         print(response.headers)
     except Exception as e:
         print(str(e))
+
+
+
+    
 
