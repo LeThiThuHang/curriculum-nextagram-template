@@ -50,6 +50,7 @@
             container: '#dropin-container'
             }, 
             function (createErr, instance) {
+                
                 button.addEventListener('click', function () {
                     //'payload' is the object from braintree, 'instance' is the form
                     instance.requestPaymentMethod(function (err, payload) {
