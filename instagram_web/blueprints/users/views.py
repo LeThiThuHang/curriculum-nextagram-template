@@ -44,11 +44,8 @@ def create():
 
 #this is to show the each profile page
 @users_blueprint.route('/<username>', methods=["GET"])
-@login_required
-def show(username):
-      
+def show(username):    
     user = User.get_or_none(User.name == username) 
-
     return render_template('users/user.html', user = user)
 
 #----------------------------------------UPLOAD TO S3-----------------------------------------------------
