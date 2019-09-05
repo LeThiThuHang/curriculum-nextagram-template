@@ -9,13 +9,13 @@ s3 = boto3.client(
 )
 
 
-def upload_file_to_s3(file, bucket_name, acl="public-read"):
+def upload_file_to_s3(file, acl="public-read"):
 
     try:
 
         s3.upload_fileobj(
             file,
-            bucket_name,
+            'nextagramhang',
             file.filename,
             ExtraArgs={
                 "ACL": acl,
@@ -28,7 +28,7 @@ def upload_file_to_s3(file, bucket_name, acl="public-read"):
         print("Something Happened: ", e)
         return e
     
-    return "{}{}".format(DevelopmentConfig.S3_LOCATION, file.filename)
+    
 
 #allowed_file
 

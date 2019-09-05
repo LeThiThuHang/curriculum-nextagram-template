@@ -71,7 +71,7 @@ def image_upload(username):
 
         #upload to s3
         file.filename = secure_filename(file.filename)
-        output = upload_file_to_s3(file, DevelopmentConfig.S3_BUCKET) # return the str(output)
+        output = upload_file_to_s3(file, acl="public-read") # return the str(output)
 
         #if upload succesfully to both s3 and DB
         if image.save() and str(output): # return http://nextagramhang.s3.amazonaws.com/pokemon.jpg
