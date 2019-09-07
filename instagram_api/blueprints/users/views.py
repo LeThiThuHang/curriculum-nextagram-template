@@ -18,6 +18,8 @@ def get_current_user():
                 email='',
                 id='')
 
+
+#----------------------------------------------------API GET-------------------------------------------------------------------------------------
 #return the information of the users
 @users_api_blueprint.route('/users', methods=['GET'])
 def get_all_users():
@@ -79,7 +81,10 @@ def get_user_image(id):
         
     return jsonify(list)
 
-
+#------------------------------API POST------------------------------------------------------------
+#get request to take the current users login
+@users_api_blueprint.route('/me', methods=['GET'])
+def get_current_user(id):
     
 
     
