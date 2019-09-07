@@ -1,22 +1,12 @@
-from flask import Blueprint
-from flask import jsonify
+from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 from flask_login import current_user
 from models.user import User
+from app import csrf
 
 users_api_blueprint = Blueprint('users_api',
                              __name__,
                              template_folder='templates')
-
-@users_api_blueprint.route('/me', methods=['GET'])
-def get_current_user():
-    if current_user:
-        return jsonify(username=current_user.name,
-                        email=current_user.email,
-                        id=current_user.id)
-    else: 
-        return jsonify(username='',
-                email='',
-                id='')
 
 
 #----------------------------------------------------API GET-------------------------------------------------------------------------------------
@@ -81,10 +71,79 @@ def get_user_image(id):
         
     return jsonify(list)
 
-#------------------------------API POST------------------------------------------------------------
+#------------------------------API GET WITH JWT------------------------------------------------------------
 #get request to take the current users login
+
+@users_api_blueprint.route('/login', methods=['POST'])
+@csrf.exempt
+def create_user():
+    if not request.is_json:
+        return jsonify({
+            "msg":"Missing JSON"
+        }), 400
+    
+    name = request.json.get('name')
+    password = request.json.get('password')
+    email = request.json.get('email')
+
+    if not name: 
+        return jsonify({
+            "msg":"Missing JSON username parameter"
+        }), 400
+
+    if not password:
+        return jsonify({
+            "msg":"Missing JSON password parameter"
+        }), 400
+    
+    if not email:
+        return jsonify({
+            "msg":"Missing JSON email parameter"
+        }), 400
+    
+    user = User.create(
+        name=name,
+        password=password,
+        email=email
+    )
+
+    if user.save():
+        access_token = create_access_token(identity=user.id)
+        return jsonify({
+            "jwt":access_token
+        }), 200
+    else:
+        return jsonify({user.errors}), 400 #bad request
+
+#in Postman, put this shit in JSON
+""" {
+	"name":"john1",
+	"password":"1A!1q112",
+	"email":"johndoe1@gmail.com"
+} """
+
+""" it will return this shit: 
+{
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1Njc4MzM1OTUsIm5iZiI6MTU2NzgzMzU5NSwianRpIjoiYTZiZTg0NjQtMTdkMi00MTQ2LWJlOWYtMTdiOTUzMzg1YjNkIiwiZXhwIjoxNTY3ODM0NDk1LCJpZGVudGl0eSI6NTEsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.M9cYmv1AGyL7X-SEeECDT5wBFE1_6iYuq0PJLt6iSgc"
+}
+ """
+
 @users_api_blueprint.route('/me', methods=['GET'])
-def get_current_user(id):
+@jwt_required
+def get_current_user():
+    current_user_id = get_jwt_identity()
+    
+    current_user = User.get_by_id(current_user_id)
+
+    return jsonify({
+        "name":current_user.name,
+        "email":current_user.email,
+        "id":current_user.id
+    })
+
+""" it will return this shit: 
+{ "email": "johndoe1@gmail.com", "id": 51, "name": "john1" } """
+
     
 
     

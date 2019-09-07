@@ -11,6 +11,7 @@ class Config(object):
     
     client_id=os.environ.get("GOOGLE_CLIENT_ID")
     client_secret=os.environ.get("GOOGLE_CLIENT_SECRET")
+    JWT_SECRET_KEY=os.environ.get("JWT_SECRET_KEY")
 
 
 class ProductionConfig(Config):

@@ -10,6 +10,9 @@ from flask_wtf.csrf import CSRFProtect
 # for login manager
 from flask_login import LoginManager
 
+#for JWT
+from flask_jwt_extended import JWTManager
+
 
 web_dir = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'instagram_web')
@@ -62,6 +65,9 @@ oauth.register('google',
 )
 
 oauth.init_app(app)
+
+# set up JWT_extension
+jwt = JWTManager(app)
 
 @app.before_request
 def before_request():
