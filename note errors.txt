@@ -1,8 +1,0 @@
-peewee.IntegrityError
-peewee.IntegrityError: insert or update on table "payment" violates foreign key constraint "fk_payment_image_id_refs_user"
-DETAIL:  Key (image_id)=(10) is not present in table "user".
-
-when i try to create         
-        user = User.get_by_id(current_user.id)
-        image = Image.get_by_id(image_id)
-        payment = Payment(user = user,image = image, amount = amount)
