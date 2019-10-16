@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Turret+Road:400,500,700,800&display=swap');
 
-body {
+html, body {
     font-family: 'Turret Road', cursive;
     background-color: #a34a28;
+    width: 100%;
+    height:100%;
+    margin: 0;
 }
 
 .navbar {
@@ -31,11 +34,12 @@ body {
 }
 
 .standard_btn {
-    width:10vw;
+    width:7vw;
     height:5vh;
     background-color: #dfddc7;
     font-size: 2rem;
     color: black;
     border-radius: 10px;
-    border:none
+    border:none;
+
 }

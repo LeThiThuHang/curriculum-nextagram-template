@@ -1,0 +1,40 @@
+/* formating for signup form  */
+
+#sign_up_form_container {
+    display:block;
+    margin:0 auto;
+    align-content: center;
+    background-color: #f58b54;
+    height: 63vh;
+    font-size: 3rem;
+    padding: 2rem;
+    width: 50vw;
+}
+
+#sign_up_form_container h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    text-align:center
+
+}
+
+#sign_up_form_container input {
+    width: 42vw;
+    line-height: 5vh;
+    font-size: 2rem;
+}
+
+#add_a_usesr_button {
+    display:block;
+    margin: 2rem auto;
+
+    width:15vw;
+    height:7vh;
+    background-color: #dfddc7;
+    font-size: 3rem;
+    color: black;
+    border-radius: 10px;
+    border:none;
+
+    
+}

@@ -32,6 +32,7 @@ def create():
 
     if new_user.save():
         flash('User has been created successfully','success')
+        #should log in directly to the user page information
         return redirect(url_for('users.new'))
     else: 
         flash('Please try again!','danger')
