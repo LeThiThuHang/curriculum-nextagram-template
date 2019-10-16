@@ -114,14 +114,7 @@ def authorize():
         flash('You have problem login','danger')
         return redirect(url_for('sessions.new'))
     
-    
 
-#----------------------- REDIRECT USER TO THEIR PAGE AFTER LOGIN SUCCESFULLY -----------------------------------------------------
-
-#this is lead the user to their page after login
-""" @sessions_blueprint.route('/<username>/')
-def show():
-    return render_template('home.html') """
 
 
 

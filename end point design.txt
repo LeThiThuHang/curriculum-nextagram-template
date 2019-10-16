@@ -8,9 +8,9 @@ GET: user_api/images - Get request to retrieve all user images
 
 GET: user_api/images/id - Get request to obtain all images for the user ID
 
+GET: /me - Get request to attain information of user who currently log in
+
 
 POST: /login - Post request to login to app
-
-POST: /users - Post request to sign up a new user
 
 POST: /images/ - Post a image

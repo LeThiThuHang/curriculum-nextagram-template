@@ -1,8 +1,10 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 from flask_login import current_user
 from models.user import User
 from app import csrf
+
+from helpers import upload_file_to_s3
 
 users_api_blueprint = Blueprint('users_api',
                              __name__,
@@ -71,7 +73,7 @@ def get_user_image(id):
         
     return jsonify(list)
 
-#------------------------------API GET WITH JWT------------------------------------------------------------
+#------------------------------API GET AND POST WITH JWT------------------------------------------------------------
 #get request to take the current users login
 
 @users_api_blueprint.route('/login', methods=['POST'])
@@ -144,6 +146,55 @@ def get_current_user():
 """ it will return this shit: 
 { "email": "johndoe1@gmail.com", "id": 51, "name": "john1" } """
 
+#------------------------------API POST IMAGES: method 1------------------------------------------------------------
+
+#note: need to put the JWT token for security
+@users_api_blueprint.route('/<userid>/image', methods=['POST'])
+@csrf.exempt
+def post_image(userid):
+    """ # - files pass through your server, temporarily store in your server -> then get uploaded onto s3
+    request.files -> AWS s3.upload -> get the url -> store in db -> return the url as json """
+    image_file = request.files['user_file']
     
+    upload_file_to_s3(image_file)
+    
+    #upload to the database
+    user = User.get_by_id(userid)
+    user.profile_image = image_file.filename
+    
+    if user.save():
+        return jsonify({
+            "name":user.name,
+            "email":user.email,
+            "image_url":user.profile_image_url
+        })
+    else: 
+        return jsonify({user.errors}), 400 #bad request
+
+#------------------------------API POST IMAGES: method 2------------------------------------------------------------
+#render a template for submitting
+@users_api_blueprint.route('/image/method2')
+@csrf.exempt
+def postAPI_image_form():
+    return render_template('users_api/upload_images_api.html')
+
+#return the Json file after submtting
+@users_api_blueprint.route('/image/method2/post')
+@csrf.exempt
+def postAPI_image():
+    profile_image_url = request.form["file_input"]
+
+    user=User.get_by_id(51) #hard-coded for now
+
+    user.image_url = profile_image_url
+
+    if user.save():
+        return jsonify({
+            "name":user.name,
+            "email":user.email,
+            "profile_image_url":user.profile_image_url
+        })
+    else: 
+        return jsonify({user.errors}), 400 #bad request
 
     

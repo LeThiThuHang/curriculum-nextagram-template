@@ -12,8 +12,6 @@ from helpers import s3, DevelopmentConfig, upload_file_to_s3, gateway, sending_e
 from werkzeug.utils import secure_filename
 
 
-
-
 users_blueprint = Blueprint('users',
                             __name__,
                             template_folder='templates')
@@ -93,29 +91,6 @@ def checkout_new(username,imageid):
     client_token = gateway.client_token.generate()
     return render_template('users/payment.html', username = username, image_id = imageid, client_token = client_token)
 
-
-
-# to show the check out result: no need this one
-""" @users_blueprint.route('/<username>/checkouts/<transaction_id>', methods=['GET'])
-def show_checkout(username,transaction_id):
-    transaction = find_transaction(transaction_id)
-    result = {}
-    if transaction.status in TRANSACTION_SUCCESS_STATUSES:
-        result = {
-            'header': 'Sweet Success!',
-            'icon': 'success',
-            'message': 'Your test transaction has been successfully processed. See the Braintree API response and try again.'
-        }
-    else:
-        result = {
-            'header': 'Transaction Failed',
-            'icon': 'fail',
-            'message': 'Your test transaction has a status of ' + transaction.status + '. See the Braintree API response and try again.'
-        }
-
-    return render_template('users/checkout_result.html', transaction=transaction, result=result)
- """
-
 # to submit check out to Braintree,
 @users_blueprint.route('/<username>/checkout', methods=["POST"])
 def create_checkout(username):
@@ -158,7 +133,6 @@ def create_checkout(username):
 @users_blueprint.route('/<username>/thankyou')
 def thankyou(username):
     sending_email()
-
     return render_template('users/thankyou.html', username = username)
 
 
@@ -171,6 +145,3 @@ def edit(id):
 @users_blueprint.route('/<id>', methods=['POST'])
 def update(id):
     pass
-
-
-

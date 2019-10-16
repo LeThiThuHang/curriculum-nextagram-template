@@ -28,13 +28,15 @@
 
   <!-- navigation menu -->
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{{ url_for('home') }}">Nextagram</a>
+  <nav class="navbar navbar-expand-lg navbar-light">
+      <a  href="{{ url_for('home') }}">
+        <img src='/static/photos/icon.png' />
+        Nextagram</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="buttons collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             {% if current_user.is_authenticated %}
             {{current_user}}
@@ -55,16 +57,16 @@
                 </li>
             </form>
             {% else %}
-            <li class="nav-item mr-3">
+            <li class="nav-item">
               <!-- refer to the function to show the Log In form -->
               <a href= "{{ url_for('sessions.check') }}">
-                <button type="sumbit" class="btn btn-secondary" href=''>Log In</button>
+                <button type="sumbit" class="standard_btn btn btn-secondary" href=''>Log In</button>
               </a>           
             </li>
             <li class="nav-item">
                 <!-- refer to the function to show the Sign Up form -->
                 <a href= "{{ url_for('users.new') }}">
-                  <button type="sumbit" class="btn btn-secondary" href=''>Sign Up</button>
+                  <button type="sumbit" class="standard_btn btn btn-secondary" href=''>Sign Up</button>
                 </a>           
               </li>
             {% endif %}

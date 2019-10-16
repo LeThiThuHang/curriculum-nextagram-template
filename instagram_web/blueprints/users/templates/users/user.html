@@ -5,20 +5,15 @@
 <h1>User Profile Page</h1>
 
 <div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
-
     <div class="p-2 bd-highlight ">
         <h1>{{user.name}}</h1>
     </div>
-
-
-
     <div class="p-2 bd-highlight">
-        <img src = "{{ user.profile_image_url }}" class = 'rounded w-25 h-25'>
-        
+        <img src = "{{ user.profile_image_url }}" class = 'rounded w-25 h-25'>       
     </div>
-
     <!--upload image form-->
-    <div class="p-2 bd-highlight w-100"></div>
+    <div class="p-2 bd-highlight w-100">
+
         <form action = {{ url_for('users.image_upload', username = current_user.name) }} method='POST' enctype="multipart/form-data">          
             <input type='hidden' name='csrf_token' value = "{{ csrf_token() }}" >          
                 <div class="input-group mb-3">
@@ -26,39 +21,76 @@
                         <button type='submit' class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Upload your photo</button>
                     </div>
                     <div class="custom-file">
-                        <input name='user_file' type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                        <input name='user_file' type="file" class="custom-file-input" id="file_input" aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                     </div>
                 </div>                                            
         </form> 
-    </div>
 
+    </div>
 </div>
 
-<!-- for the images selection -->
+<!-- for the Donate in each image -->
 <div class="d-flex flex-row flex-wrap align-content-center">
-
     {% for image in user.images %}
     <div class = "d-flex flex-column">       
-        <img src='{{image.image_url}}' class='w-25'>
-       
+        <img src='{{image.image_url}}' class='w-25'>     
         <form action = {{ url_for('users.checkout_new', username = current_user.name, imageid = image.id) }} method='POST'>
             <input type='hidden' name='csrf_token' value = "{{ csrf_token() }}" > 
-            <input type ='hidden' name='image_id' value = {{image_id}}>
-          
+            <input type ='hidden' name='image_id' value = {{image_id}}>         
             <button type='submit' class="btn btn-outline-secondary w-25 bg-dark text-white" type="button">Donate</button>
-
-        </form>
-
-        
-
-    
-        
+        </form>                 
     </div>
     {% endfor %}
-
 </div>
 
+<!--this part is for API post images method 2-->
+<!--this shit is JS-->
+<script>
+    /* listen for changes in the file input, once the document has loaded, and starts the upload process */
+    (function(){
+        document.getElementById("file_input").onchange = function(){
+            var files = document.getElementById("file_input").files;
+            var file = files[0]
+            if(!file){
+                return alert('No file selected','danger')
+            }
+            getSignedRequest(file);
+        };
+    }) ();
+
+    /* this function is to accept file object, then obtain an appropriate signed request from the back-end */
+    function getSignedRequest(file){
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/sign_s3?file_name="+file.name+"&file_type="+file.type);
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4){
+                if(xhr.status === 200){
+                    var response = JSON.parse(xhr.responseText)
+                    uploadFile(file, response.data, response.url);
+                }
+                else {
+                    alert('Could not get singed URL');
+                }
+            }
+        };
+        xhr.send();
+    }
+    
+    function uploadFile(file, s3Data, url) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", s3Data.url);
+
+        var postData = new FormData();
+        for (key in s3Data.fields){
+            postData.append(key, s3Data.fields[key]);
+        }
+        postData.append('file',file);
+        // add here later the code to update the database
+        xhr.send(postData)
+    }
+
+</script> 
 
 
 {% endblock %}

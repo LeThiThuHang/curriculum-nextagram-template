@@ -60,37 +60,10 @@ def profile_pic():
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS """
 
-#this is to upload file to S3, already transfer it to helpers.py
-""" def upload_file_to_s3(file, bucket_name,acl='public-read'):
-    try:
-        s3.upload_fileobj(
-            file, 
-            bucket_name,
-            file.filename,
-            ExtraArgs={
-                'ACL': acl, 
-                'ContentType': file.content_type
-            }
-        )
-    except Exception as e: 
-        print('Something happened: ',e)
-        return e
-    
-    return "{}{}".format(DevelopmentConfig.S3_LOCATION, file.filename) #app.config["S3_LOCATION"] """
-
-
-
 #this is to return a string output after check file then upload file to S3
 @edits_blueprint.route('/photo_form', methods = ['POST'])
 @login_required
 def upload_file():
-    
-    """ request.files['user_file'] # return <FileStorage: 'pokemon.jpg' ('image/jpeg')>
-    request.files['user_file'].filename # return pokemon.jpg
-    allowed = allowed_file(filename) # return True
-    dev = DevelopmentConfig.S3_BUCKET
-
-    return render_template('home.html', dev = dev) """
 
     if 'user_file' not in request.files: 
         return 'No user_file key in request.files'
