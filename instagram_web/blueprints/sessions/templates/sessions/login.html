@@ -1,25 +1,24 @@
 {% extends "_layout.html" %}
 {% block content %}
 
+<div id ='log_in_form_container'>
+  <h1>Log in</h1>
 
-<h1>Log in</h1>
-{{profile}}
-{{email}}
+  <!-- need to do foldername.function -->
+  <form action={{ url_for('sessions.check') }} method='POST'>
 
-
-<!-- need to do foldername.function -->
-<form action= {{ url_for('sessions.check') }} method='POST'>
-
-    <input type='hidden' name='csrf_token' value = "{{ csrf_token() }}" >
+    <input type='hidden' name='csrf_token' value="{{ csrf_token() }}">
 
     <div class="form-group">
-        <label for="exampleInputName1">Name</label>     
-        <input name = 'name' type="name" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="Enter name">
+      <label for="exampleInputName1">Name</label>
+      <input name='name' type="name" class="form-control" id="exampleInputName1" aria-describedby="emailHelp"
+        placeholder="Enter name">
     </div>
 
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
-      <input name = 'email' type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <input name='email' type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+        placeholder="Enter email">
     </div>
 
     <div class="form-group">
@@ -27,14 +26,14 @@
       <input name='password' type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
     </div>
 
-    <button type="submit" class="btn btn-primary">Log in</button>
+    <button type="submit" class="btn btn-primary login_button">Log in</button>
   </form>
 
-  <form action = {{ url_for('sessions.login') }}>
-      <button type="submit" class="btn btn-info mt-3">Log in with Google</button>  
+  <form action={{ url_for('sessions.login') }}>
+    <button type="submit" class="btn btn-info mt-3 login_button">Log in with Google</button>
   </form>
-     
-  
+</div>
+
+
 
 {% endblock %}
-
