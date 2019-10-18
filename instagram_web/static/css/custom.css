@@ -1,6 +1,6 @@
 /* formating for sign up and login form  */
 
-#sign_up_form_container, #log_in_form_container, #edit_form_container, #payment_container {
+#sign_up_form_container, #log_in_form_container, #edit_form_container, #payment_container, #thank_you_container {
     display:block;
     margin:0 auto;
     align-content: center;
@@ -10,6 +10,16 @@
     padding: 2rem;
     width: 50vw;
 }
+
+#thank_you_container {
+    height:40vh
+}
+
+#thank_you_container h1{
+    margin-top: 15vh;
+}
+
+
 
 #log_in_form_container{
     height: 73vh
