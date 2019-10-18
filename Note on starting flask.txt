@@ -1,0 +1,4 @@
+(base) PS C:\Users\Public\curriculum-nextagram-template>
+(base) PS C:\Users\Public\curriculum-nextagram-template> code .
+(base) PS C:\Users\Public\curriculum-nextagram-template> conda activate nextagram
+(nextagram) PS C:\Users\Public\curriculum-nextagram-template> flask run

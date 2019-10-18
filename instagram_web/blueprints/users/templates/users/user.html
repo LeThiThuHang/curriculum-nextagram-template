@@ -4,9 +4,9 @@
 {% if user.id == current_user.id %}
 
 <div class="d-flex flex-column text-center" id='user_profile_page_container'>
-    <h1>{{user.name}}</h1>
+    <h1>{{current_user.name}}</h1>
     <div>
-        <img src="{{ user.profile_image_url }}" id='user_profile_picture'>
+        <img src="{{ current_user.profile_image_url }}" id='user_profile_picture'>
     </div>
 
     <!--upload image form-->
