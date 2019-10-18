@@ -1,6 +1,7 @@
 /* formating for sign up and login form  */
 
-#sign_up_form_container, #log_in_form_container, #edit_form_container, #payment_container, #thank_you_container, #upload_profile_image_container{
+#sign_up_form_container, #log_in_form_container, #edit_form_container, #payment_container, #thank_you_container, #upload_profile_image_container
+, #upload_profile_photo_page_container {
     display:block;
     margin:0 auto;
     align-content: center;
@@ -28,6 +29,10 @@
     height: 20vh;
 }
 
+#upload_profile_photo_page_container {
+    height: 50vh
+}
+
 
 
 #log_in_form_container{
@@ -38,7 +43,8 @@
     height:85vh;
 }
 
-#sign_up_form_container h1, #log_in_form_container h1, #edit_form_container h1, #payment_container h1{
+#sign_up_form_container h1, #log_in_form_container h1, #edit_form_container h1, #payment_container h1,
+#upload_profile_photo_btn_sepeprate h1{
     font-size: 4rem;
     margin-bottom: 1rem;
     text-align:center
@@ -52,7 +58,7 @@
 }
 
 
-#add_a_usesr_button, #change_btn, #submit-button, #upload_profile_photo_btn {
+#add_a_usesr_button, #change_btn, #submit-button, #upload_profile_photo_btn, #upload_profile_photo_btn_sepeprate {
     display:block;
     margin: 2rem auto;
     width:15vw;
@@ -81,8 +87,24 @@
 
 }
 
-#add_a_usesr_button:hover, .login_button:hover, #change_btn:hover, #submit-button:hover, #upload_profile_photo_btn:hover {
+#add_a_usesr_button:hover, .login_button:hover, #change_btn:hover, #submit-button:hover, #upload_profile_photo_btn:hover,
+#upload_profile_photo_btn_sepeprate:hover {
     background-color: #5eb7b7 ;
+}
+
+#choose_file_image {
+    margin-top: 2rem;
+    margin-bottom:2rem;
+    width:40vw
+}
+
+#upload_profile_photo_btn_sepeprate {
+    width:20vw;
+    margin-top: 5rem;
+}
+
+#upload_profile_photo_page_container form {
+    font-size: 2rem
 }
 
 /* formating for User Profile Page */

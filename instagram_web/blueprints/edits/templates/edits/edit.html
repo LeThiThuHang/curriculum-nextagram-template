@@ -32,7 +32,8 @@
 </div>
 
 <div id='upload_profile_image_container'>
-  <form action={{ url_for('users/edit.edit', id = current_user.id) }} method='POST'>
+  <form action={{ url_for('users/edit.profile_pic') }}>
+    <input type='hidden' name='csrf_token' value="{{ csrf_token() }}">
     <button type="submit" class="btn btn-primary" id='upload_profile_photo_btn'>Upload your profile photo</button>
   </form>
 
