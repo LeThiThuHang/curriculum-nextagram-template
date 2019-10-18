@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if user.id == current_user.id %}
-<!--  if current user id match, show the current usrs id profile with upload photo feature  -->
+<!--  if current user id match, show the current usrs id profile with upload photo feature, but image has no donate feature  -->
 
 <div class="d-flex flex-column text-center" id='user_profile_page_container'>
     <h1>{{current_user.name}}</h1>
@@ -36,14 +36,14 @@
     {% for image in current_user.images %}
     <div class="each_image_container d-flex flex-column align-content-center">
         <img src='{{image.image_url}}' class='each_image'>
-        <div>
+        <!-- <div>
             <form action={{ url_for('users.checkout_new', username = current_user.name, imageid = image.id) }}
                 method='POST'>
                 <input type='hidden' name='csrf_token' value="{{ csrf_token() }}">
                 <input type='hidden' name='image_id' value={{image_id}}>
                 <button type='submit' type="button">Donate</button>
             </form>
-        </div>
+        </div> -->
     </div>
     {% endfor %}
 </div>
