@@ -104,3 +104,64 @@
     background-color: #5eb7b7 ;
 
 }
+
+/* formating for User Profile Page */
+
+#user_profile_page_container {
+    align-content: center;
+    justify-content: center;
+}
+
+#user_profile_page_container h1{
+    padding:1rem;
+    font-size:4rem;
+    font-weight:800;
+
+}
+
+#user_profile_picture {
+    height:40vh;
+    width:20vw;
+    border-radius: 50%;
+    margin-bottom:2rem;
+}
+
+.upload_image_form {
+    font-size: 2rem;
+}
+
+#upload_btn {
+    font-size: 2rem;
+    color: black
+}
+
+#upload_btn:hover{
+    background-color: #5eb7b7 ;
+
+}
+
+.custom-file-label{
+    width:80vw;
+}
+
+.each_image {
+    height: 40vh;
+    margin:1rem;
+}
+
+.each_image_container button {
+    /*  */
+    width:10vw;
+    height:5vh;
+    background-color:#dfddc7;
+    font-size: 2rem;
+    color: black;
+    border-radius: 10px;
+    border:none;
+    margin-left: 8rem;
+    margin-bottom: 2rem;
+}
+
+.donate_button:hover {
+    background-color: #5eb7b7 ;
+}
