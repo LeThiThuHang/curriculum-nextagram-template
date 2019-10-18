@@ -2,6 +2,7 @@
 {% block content %}
 
 <!-- Payment page -->
+
 <head>
     <meta charset="utf-8">
     <!-- includes the Braintree JS client SDK -->
@@ -12,32 +13,36 @@
 
 <body>
     {{image_id}}
-    <h1>Make a payment with Braintree</h1>
-    <br>
+    <div id='payment_container'>
 
-    <form id ='payment-form' method = 'POST' action = '/users/{{current_user.name}}/checkout' >
+        <h1>Make a payment with Braintree</h1>
+        <br>
 
-         <!-- to identify the image id -->
-        <input type ='hidden' name='image_id' value = {{image_id}}>
+        <form id='payment-form' method='POST' action='/users/{{current_user.name}}/checkout'>
 
-        <input type='hidden' name='csrf_token' value = "{{ csrf_token() }}" >
-        <section>
-            <label for ='amount'>
-                <span class = 'input-label'>Amount</span>
-                <div class = 'input-wrapper amount-wrapper'>
-                    <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+            <!-- to identify the image id -->
+            <input type='hidden' name='image_id' value={{image_id}}>
+
+            <input type='hidden' name='csrf_token' value="{{ csrf_token() }}">
+            <section>
+                <label for='amount'>
+                    <span class='input-label'>Amount in USD</span>
+                    <div class='input-wrapper amount-wrapper'>
+                        <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+                    </div>
+                </label>
+                <div class="bt-drop-in-wrapper">
+                    <div id="dropin-container">
+                    </div>
                 </div>
-            </label>         
-            <div class="bt-drop-in-wrapper">
-                <div id="dropin-container">
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <input type="hidden" id="nonce" name="payment_method_nonce" value ='fake-valid-nonce' />       
-        <button class="button"  type = 'submit' id="submit-button"><span>DONATE</span></button>
+            <input type="hidden" id="nonce" name="payment_method_nonce" value='fake-valid-nonce' />
+            <button class="button" type='submit' id="submit-button"><span>DONATE</span></button>
+            <!-- using the card 4111 1111 1111 1111 -->
 
-    </form>
+        </form>
+    </div>
 
 
     <script>
@@ -46,28 +51,28 @@
 
         braintree.dropin.create(
             {
-            authorization: client_token,
-            container: '#dropin-container'
-            }, 
+                authorization: client_token,
+                container: '#dropin-container'
+            },
             function (createErr, instance) {
-                
+
                 button.addEventListener('click', function () {
                     //'payload' is the object from braintree, 'instance' is the form
                     instance.requestPaymentMethod(function (err, payload) {
-                    // Submit payload.nonce to your server
-                    if (err) {
-                        console.log('Error', err)
-                        return;
-                    }
+                        // Submit payload.nonce to your server
+                        if (err) {
+                            console.log('Error', err)
+                            return;
+                        }
 
-                    //add the none to the form, then submit it back to the form, views.py will receive this information to send to Braintree
-                    document.querySelector('#nonce').value = payload.nonce
-                    form.submit()
+                        //add the none to the form, then submit it back to the form, views.py will receive this information to send to Braintree
+                        document.querySelector('#nonce').value = payload.nonce
+                        form.submit()
 
                     });
+                });
             });
-        });
     </script>
-    </body>
+</body>
 
 {% endblock %}
