@@ -2,6 +2,7 @@
 {% block content %}
 
 {% if user.id == current_user.id %}
+<!--  if current user id match, show the current usrs id profile with upload photo feature  -->
 
 <div class="d-flex flex-column text-center" id='user_profile_page_container'>
     <h1>{{current_user.name}}</h1>
@@ -32,7 +33,7 @@
 
 <!-- for the Donate in each image -->
 <div class="d-flex flex-row flex-wrap align-content-center">
-    {% for image in user.images %}
+    {% for image in current_user.images %}
     <div class="each_image_container d-flex flex-column align-content-center">
         <img src='{{image.image_url}}' class='each_image'>
         <div>
@@ -46,8 +47,35 @@
     </div>
     {% endfor %}
 </div>
-{% else %}
 
+
+{% elif current_user.is_authenticated %}
+<!-- if current user is login, they can donate for the others users, but they can not upload photo for these users -->
+<div class="d-flex flex-column text-center" id='user_profile_page_container'>
+    <h1>{{user.name}}</h1>
+    <div>
+        <img src="{{ user.profile_image_url }}" id='user_profile_picture'>
+    </div>
+</div>
+
+<!-- for the Donate in each image -->
+<div class="d-flex flex-row flex-wrap align-content-center">
+    {% for image in user.images %}
+    <div class="each_image_container d-flex flex-column align-content-center">
+        <img src='{{image.image_url}}' class='each_image'>
+        <div>
+            <form action={{ url_for('users.checkout_new', username = user.name, imageid = image.id) }} method='POST'>
+                <input type='hidden' name='csrf_token' value="{{ csrf_token() }}">
+                <input type='hidden' name='image_id' value={{image_id}}>
+                <button type='submit' type="button">Donate</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<!-- if users dont log in, they can only view photos, no donate or upload photo -->
 <div class="d-flex flex-column text-center" id='user_profile_page_container'>
     <h1>{{user.name}}</h1>
     <div>
