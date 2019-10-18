@@ -59,7 +59,48 @@
 }
 
 
+/* formating for Home Page */
+.user_container {
+    margin-top: 6rem;
+    margin-left:1rem;
+    align-content: center;
+    flex-wrap: wrap;
+    width:100%;
+}
 
-/* end of formating for sign up form  */
+.each_user_container {
+    background-color: #f58b54;
+    margin-bottom:1rem;
+    border-radius: 15px;
 
-/* formating for log in form  */
+}
+
+.profile_picture {
+    height:10vh;
+    border-radius:50%;
+}
+
+.user_image {
+    height:15vh
+}
+
+.user_name {
+    padding:1rem;
+    font-size:2rem;
+    font-weight:800;
+}
+
+.see_more_btn {
+    width:10vw;
+    height:5vh;
+    background-color: #dfddc7;
+    font-size: 2rem;
+    color: black;
+    border-radius: 10px;
+    border:none;
+}
+
+.see_more_btn:hover {
+    background-color: #5eb7b7 ;
+
+}
