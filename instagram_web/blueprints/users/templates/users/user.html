@@ -1,15 +1,13 @@
 {% extends "_layout.html" %}
 {% block content %}
 
+{% if user.id == current_user.id %}
 
 <div class="d-flex flex-column text-center" id='user_profile_page_container'>
-
     <h1>{{user.name}}</h1>
-
     <div>
         <img src="{{ user.profile_image_url }}" id='user_profile_picture'>
     </div>
-
 
     <!--upload image form-->
     <div class="upload_image_form p-2 bd-highlight w-100">
@@ -48,6 +46,27 @@
     </div>
     {% endfor %}
 </div>
+{% else %}
+
+<div class="d-flex flex-column text-center" id='user_profile_page_container'>
+    <h1>{{user.name}}</h1>
+    <div>
+        <img src="{{ user.profile_image_url }}" id='user_profile_picture'>
+    </div>
+</div>
+
+<!--each image -->
+<div class="d-flex flex-row flex-wrap align-content-center">
+    {% for image in user.images %}
+    <div class="each_image_container d-flex flex-column align-content-center">
+        <img src='{{image.image_url}}' class='each_image'>
+    </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+
+
 
 <!--this part is for API post images method 2-->
 <!--this shit is JS-->
