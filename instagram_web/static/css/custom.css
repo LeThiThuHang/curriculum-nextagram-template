@@ -1,6 +1,6 @@
-/* formating for sign up form  */
+/* formating for sign up and login form  */
 
-#sign_up_form_container, #log_in_form_container {
+#sign_up_form_container, #log_in_form_container, #edit_form_container {
     display:block;
     margin:0 auto;
     align-content: center;
@@ -15,20 +15,21 @@
     height: 73vh
 }
 
-#sign_up_form_container h1, #log_in_form_container h1 {
+#sign_up_form_container h1, #log_in_form_container h1, #edit_form_container h1{
     font-size: 4rem;
     margin-bottom: 1rem;
     text-align:center
 
 }
 
-#sign_up_form_container input, #log_in_form_container input {
+#sign_up_form_container input, #log_in_form_container input, #edit_form_container input {
     width: 42vw;
     line-height: 5vh;
     font-size: 2rem;
 }
 
-#add_a_usesr_button {
+
+#add_a_usesr_button, #change_btn {
     display:block;
     margin: 2rem auto;
     width:15vw;
@@ -54,9 +55,11 @@
 
 }
 
-#add_a_usesr_button:hover, .login_button:hover {
+#add_a_usesr_button:hover, .login_button:hover, #change_btn:hover {
     background-color: #5eb7b7 ;
 }
+
+/* formating for User Profile Page */
 
 
 /* formating for Home Page */
