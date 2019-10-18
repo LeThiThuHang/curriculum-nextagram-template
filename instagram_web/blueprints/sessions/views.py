@@ -61,12 +61,13 @@ def check():
 @login_required
 def logout():
     logout_user()
+    all_users = User.select() # select all users
     if current_user.is_authenticated is not True:
         flash('You have been log out succesfully', 'success')       
-        return render_template('home.html')
     else: 
         flash('Log out again !!!', 'danger') 
-        return render_template('home.html')
+    return render_template('home.html', all_users = all_users)
+      
 
 #----------------------------------------LOG IN WITH GOOGLE -----------------------------------------------------
 """ users is redirect after authenticate with Google
