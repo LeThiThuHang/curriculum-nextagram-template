@@ -42,7 +42,7 @@
       </a>
     </div>
     {% if current_user.is_authenticated %}
-    <div id ='your_profile_link'>
+    <div id='your_profile_link'>
       <a href="{{ url_for('users.show', username = current_user.name) }}"> Your profile
       </a>
     </div>
@@ -75,18 +75,22 @@
           </li>
         </form>
         {% else %}
-        <li class="nav-item">
-          <!-- refer to the function to show the Log In form -->
-          <a href="{{ url_for('sessions.check') }}">
-            <button type="sumbit" class="standard_btn btn btn-secondary">Log In</button>
-          </a>
-        </li>
-        <li class="nav-item">
-          <!-- refer to the function to show the Sign Up form -->
-          <a href="{{ url_for('users.new') }}">
-            <button type="sumbit" class="standard_btn btn btn-secondary">Sign Up</button>
-          </a>
-        </li>
+        <div class="buttons collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <!-- refer to the function to show the Log In form -->
+              <a href="{{ url_for('sessions.check') }}">
+                <button type="sumbit" class="standard_btn btn btn-secondary">Log In</button>
+              </a>
+            </li>
+            <li class="nav-item">
+              <!-- refer to the function to show the Sign Up form -->
+              <a href="{{ url_for('users.new') }}">
+                <button type="sumbit" class="standard_btn btn btn-secondary">Sign Up</button>
+              </a>
+            </li>
+          </ul>
+        </div>
         {% endif %}
 
       </ul>
